@@ -1,0 +1,159 @@
+# проверка на валидность секрета
+class BaconCode(object):
+
+    global list_of_keys
+    global text_exception
+
+    list_of_keys = [' 3570124689',
+                    ' qwertyuiopasdfghjklzxcvbnm',
+                    ' йцукенгшщзхфывапролджячсмитьбюё',
+                    ' йцукенгшщзхїфівапролджячсмитьбю',
+                    ' !@#$%^&*()0123456789/*-+,.:;qwertyuiopasdfghjklzxcvbnm', 
+                    ' !@#$%^&*()0123456789/*-+,.:;йцукенгшщзхъфывапролджэячсмитьбюё', 
+                    ' !@#$%^&*()0123456789/*-+,.:;йцукенгшщзхїфівапролджєячсмитьбю',
+                    ' !@#$%^&*()0123456789/*-+,.:;abcdefghijklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM=',
+                    ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ=',
+                    ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхїфівапролджєячсмитьбюЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ=']  
+    text_exception = '!@#№"\';:?$%^&() /*-+0123456789'
+
+    def slovar(self):
+        self.slovar_1 = {}
+        self.slovar_2 = {}
+        j = 0 # Creating a dictionary from a key with alphabet as dictionaries keys
+        for i in list_of_keys[language]:
+            self.slovar_1[i] = self.key[j:j+key_len]
+            j+=1
+
+        self.slovar_2 = {self.slovar_1[i]: i for i in self.slovar_1}
+        return self.slovar_1, self.slovar_2
+
+    def create_key(self, language):
+        self.language = language
+        global key_len
+
+        if language == 0:
+            key_len = 4
+        elif language < 4:
+            key_len = 5
+        elif 3 < language < 7:
+            key_len = 6
+        else:
+            key_len = 7
+
+        self.key = 'a' * key_len # Generate key
+        temp_list_of_keys = [self.key]
+        while len(self.key) != key_len - 1 + len(list_of_keys[language]):
+            self.key += 'b'
+            if self.key[-key_len:] in temp_list_of_keys:
+                self.key = self.key[:-1]
+                self.key += 'a'
+                if self.key[-key_len:] in temp_list_of_keys:
+                    self.key = self.key[:-1]
+            temp_list_of_keys.append(self.key[-key_len:])
+
+        return self.key
+
+    def encoder(self, secret, text):
+        self.secret = secret
+        secret = str(secret)
+        self.text = text
+
+        while len(text) < len(secret)*key_len: # Inputting the text with right amount of letters
+            print('Your text is %s symbols, you need %s more symbols' % (len(text), len(secret)*key_len-len(text)))
+            text = text + input('Input secret you want to encode: %s' % text)
+
+        text = text.lower()
+        alphabet = list_of_keys[language]
+        ab_group = []
+        text_list = []
+        ab_group_list = []
+        result = ''
+        text_list = []
+        
+        for letter in text: # Create a clean list from text which will be encoded
+            if letter not in text_exception:
+                text_list.append(letter)
+
+
+        for letter in secret: # Create ab_groups
+            ab_group.append(self.slovar_1[letter])               
+
+        for group in ab_group: # Create a list of all ab group letters coming one by one
+            for letter in group:
+                ab_group_list.append(letter)
+
+        for j in range(len(ab_group_list)): # Chenging the register in text
+            if ab_group_list[j] == 'b':
+                text_list[j] = text_list[j].upper()
+
+        for j in range(len(text)): # Getting the result
+            if text[j] not in text_exception:
+                result += text_list[0]
+                del(text_list[0])
+            else:
+                result += text[j]
+
+        return result
+
+    def decoder(self, code):
+        self.code = code
+        
+        key = self.key
+        alphabet = list_of_keys[language]
+        clean_code_list = []
+        group_code_list = []
+        ab_list = []
+        ab_group = []
+        string = ''
+        result = ''
+
+        for letter in code: # Making list without spaces and symbols from code
+            if letter not in text_exception:
+                clean_code_list.append(letter)
+
+        while len(clean_code_list) >= key_len: # Deviding code list into groups of 5 and delete the rest
+            group_code_list.append(clean_code_list[:key_len])
+            del(clean_code_list[:key_len])
+
+        for group in group_code_list: # Transfering letters in the code into a or b
+            for letter in group:
+                if letter == letter.lower():
+                    ab_list.append('a')
+                else:
+                    ab_list.append('b')
+
+        while len(ab_list) != 0: # Creating ab groups
+            ab_group.append(ab_list[:key_len])
+            del(ab_list[:key_len])
+
+        for group in ab_group: # Making string of ab groups conteined in a list
+            for letter in group:
+                string += letter
+          
+        for j in range(len(ab_group)): # Assigning a letter from dictionary to each ab group from stringing
+            result += self.slovar_2[string[:key_len]]
+            string = string[key_len:]
+
+        return result
+
+
+bacon = BaconCode()
+x = None
+while x != 0:
+    language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: ')) 
+    bacon.create_key(language)
+    bacon.slovar()
+    x = int(input('1 - encode, 2 - decode, 3 - change language: '))
+    if x == 3:
+        language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: ')) 
+        bacon.create_key(language)
+        bacon.slovar()
+        continue
+    elif x == 1:
+        secret = input('Input secret:---------------------------- ')
+        print('You need %s symbos' % (len(secret)*(key_len)))
+        text = input('Input text:---------------------------- ')
+        print(bacon.encoder(secret, text))
+    elif x == 2:
+        code = input('Input code:---------------------------- ')
+        print(bacon.decoder(code))
