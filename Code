@@ -30,7 +30,7 @@ class BaconCode(object):
         self.language = language
         global key_len
 
-        if language == 0:
+        if language == 10:
             key_len = 4
         elif language < 4:
             key_len = 5
@@ -161,27 +161,37 @@ class BaconCode(object):
 
 
 bacon = BaconCode()
+language = 0
 x = None
-while x != 0:
+while x != 10:
     while True:
         try:
-            language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: '))
-            break
+            language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська, 10 - exit: '))
+            if language not in range(0,11):
+                print('Pick a number from 0 to 10.')
+                continue
+            else:
+                break
         except ValueError:
             print('Pick your number.')
+
     bacon.create_key(language)
     bacon.slovar()
     while True:    
         try:
-            x = int(input('1 - encode, 2 - decode, 3 - change language: '))
+            x = int(input('1 - encode, 2 - decode, 3 - change language, 10 - exit: '))
             break
         except ValueError:
                 print('Pick your number.')
     if x == 3:
         while True:
             try:
-                language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: '))
-                break
+                language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська, 10 - exit: '))
+                if language not in range(0,11):
+                    print('Pick a number from 0 to 10.')
+                    continue
+                else:
+                    break
             except ValueError:
                 print('Pick your number.')
         bacon.create_key(language)
