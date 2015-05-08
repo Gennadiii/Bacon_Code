@@ -1,4 +1,3 @@
-# проверка на валидность секрета
 class BaconCode(object):
 
     global list_of_keys
@@ -52,6 +51,23 @@ class BaconCode(object):
             temp_list_of_keys.append(self.key[-key_len:])
 
         return self.key
+
+    def validate_secret(self, secret):
+        self.secret = secret
+        flag = len(str(secret))
+        count = 0
+        while flag != count:
+            for letter in secret:
+                if letter in list_of_keys[language]:
+                    count += 1
+                else:
+                    print('Please use symbols from this list: %s' % list_of_keys[language])
+                    secret = input('Input secret:---------------------------- ')
+                    flag = len(str(secret))
+                    count = 0
+                    break
+            continue
+        return secret
 
     def encoder(self, secret, text):
         self.secret = secret
@@ -151,7 +167,8 @@ while x != 0:
         continue
     elif x == 1:
         secret = input('Input secret:---------------------------- ')
-        print('You need %s symbos' % (len(secret)*(key_len)))
+        secret = bacon.validate_secret(secret)
+        print('You need %s symbos' % (len(str(secret))*(key_len)))
         text = input('Input text:---------------------------- ')
         print(bacon.encoder(secret, text))
     elif x == 2:
