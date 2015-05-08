@@ -74,9 +74,18 @@ class BaconCode(object):
         secret = str(secret)
         self.text = text
 
-        while len(text) < len(secret)*key_len: # Inputting the text with right amount of letters
-            print('Your text is %s symbols, you need %s more symbols' % (len(text), len(secret)*key_len-len(text)))
+        count_letters_in_text = 0
+        for letter in text:
+            if letter not in text_exception:
+                count_letters_in_text += 1
+
+        while count_letters_in_text < len(secret)*key_len: # Inputting the text with right amount of letters
+            print('Your text is %s symbols, you need %s more symbols' % (count_letters_in_text, len(secret)*key_len-count_letters_in_text))
             text = text + input('Input secret you want to encode: %s' % text)
+            count_letters_in_text = 0
+            for letter in text:
+                if letter not in text_exception:
+                    count_letters_in_text += 1            
 
         text = text.lower()
         alphabet = list_of_keys[language]
@@ -84,12 +93,10 @@ class BaconCode(object):
         text_list = []
         ab_group_list = []
         result = ''
-        text_list = []
         
         for letter in text: # Create a clean list from text which will be encoded
             if letter not in text_exception:
                 text_list.append(letter)
-
 
         for letter in secret: # Create ab_groups
             ab_group.append(self.slovar_1[letter])               
