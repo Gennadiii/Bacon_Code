@@ -163,7 +163,12 @@ class BaconCode(object):
 bacon = BaconCode()
 x = None
 while x != 0:
-    language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: ')) 
+    while True:
+        try:
+            language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська: '))
+            break
+        except ValueError:
+            print('Pick your number.')
     bacon.create_key(language)
     bacon.slovar()
     x = int(input('1 - encode, 2 - decode, 3 - change language: '))
