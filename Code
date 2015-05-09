@@ -13,7 +13,7 @@ class BaconCode(object):
                     ' !@#$%^&*()0123456789/*-+,.:;abcdefghijklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM=',
                     ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ=',
                     ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхїфівапролджєячсмитьбюЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ=']  
-    text_exception = ',!@#№"\';:?$%^&() /*-+0123456789'
+    text_exception = ',.!@#№"\';:?$%^&() /*-+0123456789'
 
     def slovar(self):
         self.slovar_1 = {}
@@ -23,12 +23,12 @@ class BaconCode(object):
             self.slovar_1[i] = self.key[j:j+key_len]
             j+=1
 
-        self.slovar_2 = {self.slovar_1[i]: i for i in self.slovar_1}
+        self.slovar_2 = {self.slovar_1[i]: i for i in self.slovar_1} # Creating a dictionary from a key with letters as dictionaries keys
         return self.slovar_1, self.slovar_2
 
     def create_key(self, language):
         self.language = language
-        global key_len
+        global key_len # ab group length
 
         if language == 10:
             key_len = 4
@@ -66,7 +66,6 @@ class BaconCode(object):
                     flag = len(str(secret))
                     count = 0
                     break
-            continue
         return secret
 
     def encoder(self, secret, text):
@@ -74,29 +73,24 @@ class BaconCode(object):
         secret = str(secret)
         self.text = text
 
-        count_letters_in_text = 0
-        for letter in text:
-            if letter not in text_exception:
-                count_letters_in_text += 1
-
-        while count_letters_in_text < len(secret)*key_len: # Inputting the text with right amount of letters
-            print('Your text is %s symbols, you need %s more symbols' % (count_letters_in_text, len(secret)*key_len-count_letters_in_text))
-            text = text + input('Input secret you want to encode: %s' % text)
-            count_letters_in_text = 0
-            for letter in text:
-                if letter not in text_exception:
-                    count_letters_in_text += 1            
-
         text = text.lower()
         alphabet = list_of_keys[language]
         ab_group = []
         text_list = []
         ab_group_list = []
         result = ''
-        
-        for letter in text: # Create a clean list from text which will be encoded
+
+        for letter in text: # Leave only letters in text which will be coded
             if letter not in text_exception:
-                text_list.append(letter)
+                text_list.append(letter)   
+
+        while len(text_list) < len(secret)*key_len: # Inputting the text with right amount of letters
+            print('Your text is %s symbols, you need %s more symbols' % (len(text_list), len(secret)*key_len-len(text_list)))
+            text = text + input('Input secret you want to encode: %s' % text)
+            text_list = []
+            for letter in text:
+                if letter not in text_exception:
+                    text_list.append(letter)
 
         for letter in secret: # Create ab_groups
             ab_group.append(self.slovar_1[letter])               
