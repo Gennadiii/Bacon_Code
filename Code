@@ -80,21 +80,16 @@ class BaconCode(object):
         ab_group_list = []
         result = ''
 
-        for letter in text: # Leave only letters in text which will be coded
-            if letter not in text_exception:
-                text_list.append(letter)   
+        text_list = [letter for letter in text if letter not in text_exception] # Leave only letters in text which will be coded   
 
         while len(text_list) < len(secret)*key_len: # Inputting the text with right amount of letters
             print('Your text is %s symbols, you need %s more symbols' % (len(text_list), len(secret)*key_len-len(text_list)))
             text = text + input('Input secret you want to encode: %s' % text)
             text_list = []
-            for letter in text:
-                if letter not in text_exception:
-                    text_list.append(letter)
+            text_list = [letter for letter in text if letter not in text_exception]
 
-        for letter in secret: # Create ab_groups
-            ab_group.append(self.slovar_1[letter])               
-
+        ab_group = [self.slovar_1[letter] for letter in secret] # Create ab_groups             
+        
         for group in ab_group: # Create a list of all ab group letters coming one by one
             for letter in group:
                 ab_group_list.append(letter)
@@ -124,9 +119,7 @@ class BaconCode(object):
         string = ''
         result = ''
 
-        for letter in code: # Making list without spaces and symbols from code
-            if letter not in text_exception:
-                clean_code_list.append(letter)
+        clean_code_list = [letter for letter in code if letter not in text_exception] # Making list without spaces and symbols from code
 
         while len(clean_code_list) >= key_len: # Deviding code list into groups of 5 and delete the rest
             group_code_list.append(clean_code_list[:key_len])
