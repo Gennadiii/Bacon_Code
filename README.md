@@ -1,8 +1,8 @@
 # Bacon_Code
 The program encodes and decodes using Bacon's algorithm. 
 It has 2 keys - alphabet which is used in secret that needs to be encoded and ab-key. Like this:
-123
-aabba
+alphabet = 123
+ab-group = aabba
 1 = aaa
 2 = abb
 3 = bba
