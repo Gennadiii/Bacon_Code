@@ -18,11 +18,29 @@ class BaconCode(object):
                     ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхїфівапролджєячсмитьбюЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ=']  
     text_exception = ',.!@#№"\';:?$%^&() /*-+0123456789'
 
+    def language(self):
+        '''
+        Defines variable language.
+        Takes no arguments
+        '''
+        while True:
+            try:
+                language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська, 10 - exit: '))
+                if language not in range(0,11):
+                    print('Pick a number from 0 to 10.')
+                    continue
+                elif language == 10:
+                    exit()
+                else:
+                    break
+            except ValueError:
+                print('Pick your number.')
+        return language
+
     def create_key(self, language):
         '''
         This method generates ab-key, takes 1 parametr - language which decides the length of key
         '''
-        self.language = language
         global key_len # ab group length
 
         if language == 10:
@@ -166,30 +184,12 @@ class BaconCode(object):
 
         return result
 
-    def language(self):
-        '''
-        Defines variable language.
-        Takes no arguments
-        '''
-        while True:
-            try:
-                language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська, 10 - exit: '))
-                if language not in range(0,11):
-                    print('Pick a number from 0 to 10.')
-                    continue
-                else:
-                    break
-            except ValueError:
-                print('Pick your number.')
-        return language        
-
 bacon = BaconCode()
-language = 0
+language = bacon.language()
+bacon.create_key(language)
+bacon.slovar()
 x = None
 while x != 10:
-    language = bacon.language()
-    bacon.create_key(language)
-    bacon.slovar()
     while True:    
         try:
             x = int(input('1 - encode, 2 - decode, 3 - change language, 10 - exit: '))
