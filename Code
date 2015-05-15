@@ -1,3 +1,11 @@
+print('''
+First you have to choose language. 3 languages available: English, Russian, Ukrainian and numbers.
+Choises 1, 2 and 3 - basic alphabet.
+4, 5, 6 - basic alphabet with symbols.
+6, 7, 8 - basic alphabet with symbols and capital letters.
+Space is available in every choise.
+Text in which you wnat to wrap your secret can cosist from symbols, but symbols can't be encoded so use letters for that matter.
+    ''')
 class BaconCode(object):
     '''
     Class BaconCode codes and decodes text using Bacon algorithm
@@ -117,7 +125,7 @@ class BaconCode(object):
         text_list = [letter for letter in text if letter not in text_exception] # Leave only letters in text which will be coded   
 
         while len(text_list) < len(secret)*key_len: # Inputting the text with right amount of letters
-            print('Your text is %s symbols, you need %s more symbols' % (len(text_list), len(secret)*key_len-len(text_list)))
+            print('Your text is %s symbols, you need %s more letters' % (len(text_list), len(secret)*key_len-len(text_list)))
             text = text + input('Input secret you want to encode: %s' % text)
             text_list = []
             text_list = [letter for letter in text if letter not in text_exception]
@@ -204,7 +212,7 @@ while x != 10:
     elif x == 1:
         secret = input('Input secret:---------------------------- ')
         secret = bacon.validate_secret(secret)
-        print('You need %s symbos' % (len(str(secret))*(key_len)))
+        print('You need %s letters' % (len(str(secret))*(key_len)))
         text = input('Input text:---------------------------- ')
         print(bacon.encoder(secret, text))
 
