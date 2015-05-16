@@ -201,10 +201,12 @@ language = bacon.language()
 bacon.create_key(language)
 bacon.slovar()
 x = None
-while x != 10:
+while True:
     while True:    
         try:
             x = int(input('1 - encode, 2 - decode, 3 - change language, 10 - exit: '))
+            if x == 10:
+                exit()
             break
         except ValueError:
                 print('Pick your number.')
