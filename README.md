@@ -10,3 +10,5 @@ The secret encodes into random text. Symbols in text should be able to change re
 secret = 23
 text = Hello, you!
 Coded secret = hELLO, you!
+
+PS This code shouldn't  be written using OOP but wanted to practice.
