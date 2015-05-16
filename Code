@@ -1,10 +1,14 @@
 print('''
-First you have to choose language. 3 languages available: English, Russian, Ukrainian and numbers.
+First you have to choose language. 3 languages available: English (1,4,7), Russian(2,5,8), Ukrainian(3,6,9) and numbers(0).
+Russian alphabet doesn't have 'э' and 'ъ', Ukrainian - 'ї'.
 Choises 1, 2 and 3 - basic alphabet.
 4, 5, 6 - basic alphabet with symbols.
 6, 7, 8 - basic alphabet with symbols and capital letters.
-Space is available in every choise.
 Text in which you wnat to wrap your secret can cosist from symbols, but symbols can't be encoded so use letters for that matter.
+For instance you want to encode you secret: "love!". There is symbol but no capital letters.
+You choose "4" and then "1" to encode. Input your secret (love!)
+Now input any text in which you want to wrap up your secret: Space is available in every choise here.
+The result would be: Space IS avAIlaBlE iN EVeRY choise Here.
     ''')
 class BaconCode(object):
     '''
@@ -33,7 +37,7 @@ class BaconCode(object):
         '''
         while True:
             try:
-                language = int(input('0 - Numbers, 147 - English, 258 - Русский, 369 - Українська, 10 - exit: '))
+                language = int(input('0 - Numbers, 1, 4, 7 - English, 2, 5, 8 - Русский, 3, 6, 9 - Українська, 10 - exit: '))
                 if language not in range(0,11):
                     print('Pick a number from 0 to 10.')
                     continue
@@ -51,7 +55,7 @@ class BaconCode(object):
         '''
         global key_len # ab group length
 
-        if language == 10:
+        if language == 0:
             key_len = 4
         elif language < 4:
             key_len = 5
