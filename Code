@@ -37,7 +37,7 @@ The result would be: Space IS avAIlaBlE iN EVeRY choise Here.
     '''
         while True:
             language = input('''Press enter if you need a hint.
-                0 - Numbers, 1, 4, 7 - English, 2, 5, 8 - Русский, 3, 6, 9 - Українська, 10 - exit: ''')
+0 - Numbers, 1, 4, 7 - English, 2, 5, 8 - Русский, 3, 6, 9 - Українська, 10 - exit: ''')
             if len(language) == 0:
                 print(hint)
                 continue
