@@ -207,6 +207,9 @@ while True:
             x = int(input('1 - encode, 2 - decode, 3 - change language, 10 - exit: '))
             if x == 10:
                 exit()
+            elif x not in [1,2,3]:
+                print('Please choose between 1, 2, 3 or 10')
+                continue
             break
         except ValueError:
                 print('Pick your number.')
