@@ -197,7 +197,11 @@ The result would be: Space IS avAIlaBlE iN EVeRY choise Here.
                 string += letter
           
         for j in range(len(ab_group)): # Assigning a letter from dictionary to each ab group from stringing
-            result += self.slovar_2[string[:key_len]]
+            try:
+                result += self.slovar_2[string[:key_len]]
+            except KeyError:
+                return ('''Your code can\'t be decoded. Please make sure you entered the right one and if yes please send me next line to g.mishchevskii@gmail.com
+%s, %s''') % (language, code)
             string = string[key_len:]
 
         return result
