@@ -29,7 +29,8 @@ Russian alphabet doesn't have 'э' and 'ъ', Ukrainian - 'ї'.
 Choises 1, 2 and 3 - basic alphabet.
 4, 5, 6 - basic alphabet with symbols.
 6, 7, 8 - basic alphabet with symbols and capital letters.
-Text in which you wnat to wrap your secret can cosist from symbols, but symbols can't be encoded so use letters for that matter.
+You will send a random text of your choise. I'll encode your secret in this text of yours.
+Text in which you wnat to wrap your secret can cosist of anything. But only letters will be encoded so use them too.
 For instance you want to encode you secret: "love!". There is symbol but no capital letters.
 You choose "4" and then "1" to encode. Input your secret (love!)
 Now input any text in which you want to wrap up your secret: Space is available in every choise here.
