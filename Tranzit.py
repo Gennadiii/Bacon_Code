@@ -192,7 +192,54 @@ The result would be: Space IS avAIlaBlE iN EVeRY choise Here.
                     spisok.append(j + 4)
                     break
         language = max(spisok)
-        return language                                   
+        return language  
+
+    def encode_key(self, language, text):
+        '''
+        Separates text into two parts. Encodes key into a firts one and leaves the second part for main encoder.
+        Takes 2 arguments - language and text. Returns encoded key and text for main encoder.
+        '''
+        self.language = language
+        self.text = text
+
+        key_language = 'aaaabbbbabbaa'
+        key_alphabet = '0123456789'
+
+        text = text.lower()
+        text_list = []
+        ab_group_list = []
+        encoded_key = ''
+        temp_text = ''
+        count = 0
+
+        for letter in text: # Cutting text into two parts
+            if letter not in text_exception:
+                temp_text += letter
+                count += 1
+                if count == 4:
+                    break
+            else:
+                temp_text += letter
+        text = text[len(temp_text):] # The second part of text
+
+        text_list = [letter for letter in temp_text if letter not in text_exception] # Leave only letters in text which will be coded           
+        
+        for group in slovar_for_language_1[language]: # Create a list of ab group letters coming one by one
+            for letter in group:
+                ab_group_list.append(letter)
+
+        for j in range(len(ab_group_list)): # Chenging the register in text
+            if ab_group_list[j] == 'b':
+                text_list[j] = text_list[j].upper()
+
+        for j in range(len(temp_text)): # Getting the result
+            if temp_text[j] not in text_exception:
+                encoded_key += text_list[0]
+                del(text_list[0])
+            else:
+                encoded_key += temp_text[j]
+
+        return encoded_key, text                                 
 
     def encoder(self, secret, text):
         '''
