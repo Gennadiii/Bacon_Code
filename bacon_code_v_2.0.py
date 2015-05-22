@@ -28,6 +28,9 @@ I'll change register of letters in this text and that will be your code.
 The simplier secret you encode (like without capital letters or sumbols) the fewer letters I'll need in text.
 Let's see how it works:
 A woman says to a man: 
+HONEY, dOn't wAsTE mONEy ON jewelry. i HAvE eNouGH oF tHat. lEt'S Buy you a new laptop instead. you need it for work.
+But the question is - will he understand her?
+PS She really says: 'new ring' ;)
     '''
 
     def slovar_for_language(self):
