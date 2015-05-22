@@ -152,8 +152,8 @@ PS She really says: 'new ring' ;)
 
     def encode_key(self, language, text):
         '''
-        Separates text into two parts. Encodes key into a firts one and leaves the second part for main encoder.
-        Takes 2 arguments - language and text. Returns encoded key and text for main encoder.
+        Separates text into two parts. Encodes key into a firts one.
+        Takes 2 arguments - language and text. Returns encoded key.
         '''
         self.language = language
         self.text = text
@@ -176,7 +176,6 @@ PS She really says: 'new ring' ;)
                     break
             else:
                 temp_text += letter
-        text = text[len(temp_text):] # The second part of text
 
         text_list = [letter for letter in temp_text if letter not in text_exception] # Leave only letters in text which will be coded           
         
@@ -195,7 +194,7 @@ PS She really says: 'new ring' ;)
             else:
                 encoded_key += temp_text[j]
 
-        return encoded_key, text                                 
+        return encoded_key                               
 
     def encoder(self, secret, text):
         '''
@@ -353,7 +352,8 @@ while True:
             elif len(text) < 5:
                 print('Please input more letters')
 
-        print(bacon.encode_key(language, text)[0] + bacon.encoder(secret, text))
+        encoded_key = bacon.encode_key(language, text)
+        print(encoded_key + bacon.encoder(secret, text[len(encoded_key):]))
 
     elif x == 2:
         code = input('Input code:---------------------------- ')
