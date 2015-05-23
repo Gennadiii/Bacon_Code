@@ -220,7 +220,12 @@ PS She really says: 'new ring' ;)
             text_list = []
             text_list = [letter for letter in text if letter not in text_exception]
 
-        ab_group = [self.slovar_1[letter] for letter in secret] # Create ab_groups             
+        try:
+            ab_group = [self.slovar_1[letter] for letter in secret] # Create ab_groups
+        except KeyError:
+            return '''Please make sure you used only one language.
+And if you did - please send me next to g.mishchevskii@gmail.com
+%s, %s''' % (secret, text)
         
         for group in ab_group: # Create a list of all ab group letters coming one by one
             for letter in group:
