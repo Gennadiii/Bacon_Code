@@ -150,6 +150,24 @@ PS She really says: 'new ring' ;)
         self.language = max(spisok)
         return self.language  
 
+    def validate_text(self, text):
+        '''
+        Approves that text has needed amount of letters.
+        Takes one argument - text and returns text.
+        '''
+        self.text = text
+
+        text_list = [letter for letter in text if letter not in text_exception] # Leave only letters in text which will be coded   
+        encode_key_letters = [letter for letter in encode_key if letter not in text_exception] # Leave only letters in encoded key
+        while len(text_list) < len(secret)*key_len + len(encode_key_letters):
+        # Inputting the text with right amount of letters; +4 needed for encoding variable language
+            print('Your text is %s symbols, you need %s more letters' % (len(text_list), len(secret)*key_len+len(encode_key_letters)-len(text_list)))
+            text = text + input('Input secret you want to encode: %s' % text)
+            text_list = []
+            text_list = [letter for letter in text if letter not in text_exception]
+
+        return text
+
     def encode_key(self, language, text):
         '''
         Separates text into two parts. Encodes key into a firts one.
@@ -212,13 +230,6 @@ PS She really says: 'new ring' ;)
         result = ''
 
         text_list = [letter for letter in text if letter not in text_exception] # Leave only letters in text which will be coded   
-
-        while len(text_list) < len(secret)*key_len + 4:
-        # Inputting the text with right amount of letters; +4 needed for encoding variable language
-            print('Your text is %s symbols, you need %s more letters' % (len(text_list), len(secret)*key_len-len(text_list)))
-            text = text + input('Input secret you want to encode: %s' % text)
-            text_list = []
-            text_list = [letter for letter in text if letter not in text_exception]
 
         try:
             ab_group = [self.slovar_1[letter] for letter in secret] # Create ab_groups
@@ -356,9 +367,9 @@ while True:
                 continue
             elif len(text) < 5:
                 print('Please input more letters')
-
-        encoded_key = bacon.encode_key(language, text)
-        print(encoded_key + bacon.encoder(secret, text[len(encoded_key):]))
+        encode_key = bacon.encode_key(language, text)
+        text = bacon.validate_text(text)
+        print(encode_key + bacon.encoder(secret, text[len(encode_key):]))
 
     elif x == 2:
         code = input('Input code:---------------------------- ')
