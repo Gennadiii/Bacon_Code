@@ -347,8 +347,8 @@ while True:
             print('Pick your number.')
     if x == 0:
         exit()
-    elif x not in [1,2,3]:
-        print('Please choose between 1, 2, 3 or 0')
+    elif x not in [1,2]:
+        print('Please choose between 1, 2 or 0')
         continue
         
     if x == 1:
