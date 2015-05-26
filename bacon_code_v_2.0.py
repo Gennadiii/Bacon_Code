@@ -1,4 +1,5 @@
 class BaconCode(object):
+    # from time import sleep
     '''
     Class BaconCode codes and decodes text using Bacon algorithm
     Method __init__ excepts no arguments
@@ -163,6 +164,7 @@ PS She really says: 'new ring' ;)
         # Inputting the text with right amount of letters; +4 needed for encoding variable language
             print('Your text is %s symbols, you need %s more letters' % 
                 (len(text_list), len(secret)*key_len+len(encode_key_letters)-len(text_list)))
+            # time.sleep(1)
             text = text + input('Input secret you want to encode: %s' % text)
             text_list = []
             text_list = [letter for letter in text if letter not in text_exception]
@@ -256,6 +258,21 @@ And if you did - please send me next to g.mishchevskii@gmail.com
 
         return result
 
+    def check_encoder(self, secret, text):
+        '''
+        Checks the encoder. It decodes the code and compares it with initial secret
+        '''
+        self.secret = secret
+        self.text = text
+
+        language = bacon.decode_language(text)[1]
+        code = encoded
+        code = bacon.decode_language(code)[0]
+        check = bacon.decoder(code)
+
+        return 'I checked your code it works right' if secret == check[:len(secret)] else '''There's might be a mistake. Please send next to g.mishchevskii@gmail.com:
+%s, %s''' % (secret, text)
+
     def decode_language(self, code):
         '''
         Defines which language is used in code.
@@ -341,19 +358,22 @@ while True:
     x = input('Press enter for a hint, 1 - encode, 2 - decode, 0 - exit: ')
     if len(x) == 0:
         print(bacon.hint)
+        # time.sleep(5)
         continue
     try:
         x = int(x)
     except ValueError:
             print('Pick your number.')
+            # time.sleep(1)
     if x == 0:
         exit()
     elif x not in [1,2]:
         print('Please choose between 1, 2 or 0')
+        # time.sleep(1)
         continue
         
     if x == 1:
-        secret = input('Input secret that you don\'t want anyone to know or enter to return:---------------------------- ')
+        secret = input('Input secret that you don\'t want anyone to know or press enter to return:---------------------------- ')
         if len(secret) == 0:
             continue
         language = bacon.define_language(secret)
@@ -361,6 +381,7 @@ while True:
         bacon.slovar()
 
         print('You need %s letters' % (len(str(secret))*(key_len)+4))
+        # time.sleep(1)
         text = '0'
         while len(text) < 5:
             text = input('Input text that you\'ll send open or press enter to return:---------------------------- ')
@@ -368,11 +389,16 @@ while True:
                 break
             elif len(text) < 5:
                 print('Please input more letters')
+                # time.sleep(1)
         if len(text) == 0:
-            continue    
+            continue                
         encode_key = bacon.encode_key(language, text)
         text = bacon.validate_text(text)
-        print(encode_key + bacon.encoder(secret, text[len(encode_key):]))
+        encoded = encode_key + bacon.encoder(secret, text[len(encode_key):])
+        print(encoded)
+        # time.sleep(1)
+        print(bacon.check_encoder(secret, text))
+        # time.sleep(2)        
 
     elif x == 2:
         code = input('Input code:---------------------------- ')
@@ -383,3 +409,4 @@ while True:
         bacon.slovar()
         code = bacon.decode_language(code)[0]
         print(bacon.decoder(code))
+        # time.sleep(2)
