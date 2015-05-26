@@ -161,7 +161,8 @@ PS She really says: 'new ring' ;)
         encode_key_letters = [letter for letter in encode_key if letter not in text_exception] # Leave only letters in encoded key
         while len(text_list) < len(secret)*key_len + len(encode_key_letters):
         # Inputting the text with right amount of letters; +4 needed for encoding variable language
-            print('Your text is %s symbols, you need %s more letters' % (len(text_list), len(secret)*key_len+len(encode_key_letters)-len(text_list)))
+            print('Your text is %s symbols, you need %s more letters' % 
+                (len(text_list), len(secret)*key_len+len(encode_key_letters)-len(text_list)))
             text = text + input('Input secret you want to encode: %s' % text)
             text_list = []
             text_list = [letter for letter in text if letter not in text_exception]
@@ -362,11 +363,13 @@ while True:
         print('You need %s letters' % (len(str(secret))*(key_len)+4))
         text = '0'
         while len(text) < 5:
-            text = input('Input text that you\'ll send open or enter to return:---------------------------- ')
+            text = input('Input text that you\'ll send open or press enter to return:---------------------------- ')
             if len(text) == 0:
-                continue
+                break
             elif len(text) < 5:
                 print('Please input more letters')
+        if len(text) == 0:
+            continue    
         encode_key = bacon.encode_key(language, text)
         text = bacon.validate_text(text)
         print(encode_key + bacon.encoder(secret, text[len(encode_key):]))
