@@ -34,6 +34,10 @@ PS She really says: 'new ring' ;)
     '''
 
     def sleep(self,seconds):
+        '''
+        Creates pauses.
+        Takes one argument - seconds and returns a pause.
+        '''
         from time import sleep
         self.seconds = seconds
         return sleep(seconds)
