@@ -107,7 +107,6 @@ PS She really says: 'new ring' ;)
         Defines which alphabet user uses.
         Takes one argument - secret, returns language.
         '''
-        self.secret = secret
 
         spisok = []
 
@@ -164,7 +163,6 @@ PS She really says: 'new ring' ;)
         Approves that text has needed amount of letters.
         Takes one argument - text and returns text.
         '''
-        self.text = text
 
         text_list = [letter for letter in text if letter not in text_exception] # Leave only letters in text which will be coded   
         encode_key_letters = [letter for letter in encode_key if letter not in text_exception] # Leave only letters in encoded key
@@ -184,8 +182,6 @@ PS She really says: 'new ring' ;)
         Separates text into two parts. Encodes key into a firts one.
         Takes 2 arguments - language and text. Returns encoded key.
         '''
-        self.language = language
-        self.text = text
 
         key_language = 'aaaabbbbabbaa'
         key_alphabet = '0123456789'
@@ -230,8 +226,7 @@ PS She really says: 'new ring' ;)
         Encodes secret into a text.
         Takes 2 arguments - secret, text.
         '''
-        self.secret = str(secret)
-        self.text = text
+        secret = str(secret)
 
         text = text.lower()
         alphabet = list_of_keys[language]
@@ -270,8 +265,6 @@ And if you did - please send me next to g.mishchevskii@gmail.com
         '''
         Checks the encoder. It decodes the code and compares it with initial secret
         '''
-        self.secret = secret
-        self.text = text
 
         language = bacon.decode_language(text)[1]
         bacon.create_key(language)
@@ -288,7 +281,6 @@ And if you did - please send me next to g.mishchevskii@gmail.com
         Defines which language is used in code.
         Takes one argument - code and returnes language and code without part where language encoded
         '''
-        self.code = code
 
         raw_coded_language = ''
         coded_language = ''
@@ -317,8 +309,7 @@ And if you did - please send me next to g.mishchevskii@gmail.com
         Dencodes code and returns secret.
         Takes 1 argument - code.
         '''
-        self.code = code
-        
+  
         key = self.key
         alphabet = list_of_keys[language]
         clean_code_list = []
