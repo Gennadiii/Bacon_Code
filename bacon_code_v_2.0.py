@@ -23,7 +23,7 @@ class BaconCode(object):
     hint = '''
 If you want to send a secret message just choose '1' and input your secret in English, Russian or Ukrainian.
 Numbers and symbols are also supported.
-Them I'll ask you to input a random text which can be anything.
+Then I'll ask you to input a random text which can be anything.
 I'll change register of letters in this text and that will be your code.
 The simplier secret you encode (like without capital letters or sumbols) the fewer letters I'll need in text.
 Let's see how it works:
