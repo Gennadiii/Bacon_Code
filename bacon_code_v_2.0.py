@@ -18,7 +18,7 @@ class BaconCode(object):
                     ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ=',
                     ' !"№%?*()0123456789/*-+,.:;йцукенгшщзхїфівапролджєячсмитьбюЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ=']  
 
-    text_exception = ',.!@#№"\';:?$%^&() /*-+0123456789'
+    text_exception = ',.!@#№"\';:?$%^&() /*-+0123456789<>'
 
     hint = '''
 If you want to send a secret message just choose '1' and input your secret in English, Russian or Ukrainian.
